@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pricing NetEase - KOL 供应商比价系统 V1
 
-## Getting Started
+本项目基于 Next.js（App Router）实现，支持本地上传选号表，读取飞书普通表格历史数据，完成 KOL 匹配与比价输出。
 
-First, run the development server:
+## 本地启动
+
+1. 安装依赖：
+
+```bash
+npm install
+```
+
+2. 配置环境变量：
+
+```bash
+cp .env.example .env.local
+```
+
+在 `.env.local` 填写飞书应用和表格参数：
+
+- `FEISHU_APP_ID`
+- `FEISHU_APP_SECRET`
+- `FEISHU_SELF_KOL_SPREADSHEET_TOKEN`
+- `FEISHU_SELF_KOL_SHEET_ID`（可选，不填默认取第一个 sheet）
+- `FEISHU_SELF_KOL_RANGE`（可选，默认 `A:AG`）
+- `FEISHU_SUPPLIER_SPREADSHEET_TOKEN`
+- `FEISHU_SUPPLIER_RANGE`（可选，默认 `A:Q`）
+
+3. 启动开发环境：
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 `http://localhost:3000`。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 主要能力
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 上传 Excel 选号表（首个 sheet，识别 `账号类别/抖音昵称/账号id`）。
+- 服务端读取飞书普通表格（密钥只在服务端环境变量）。
+- 供应商比价表自动遍历该电子表格下全部 sheet，按统一 range 读取并合并。
+- 按优先级匹配 KOL（精确 id -> 清洗后 id -> 昵称）。
+- 输出 KOL 比价总看板、KOL 详情和推荐比价方案。
+- 详情页展示按供应商分组的价格趋势折线图。
