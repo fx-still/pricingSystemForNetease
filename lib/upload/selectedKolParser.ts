@@ -4,7 +4,7 @@ import { normalizeAccountId } from "@/lib/cleaners";
 import type { SelectedKol } from "@/types/pricing";
 
 const HEADER_KEYS = {
-  accountCategory: ["账号类别", "账户类别", "账号分类", "账户分类"],
+  accountCategory: ["账号类别", "账户类别", "账号分类", "账户分类", "类型", "账号类型", "账户类型"],
   accountName: ["抖音昵称"],
   accountId: ["账号id", "账号ID", "账户id", "账户ID", "抖音id", "抖音ID", "抖音号"],
 };
